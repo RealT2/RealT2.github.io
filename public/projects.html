@@ -6,51 +6,43 @@
     <title>Games Library</title>
     <link rel="stylesheet" href="./style.css">
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-        #container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 40px 20px;
-        }
-        .loading-text {
-            margin-top: 20vh;
-            font-size: 1.5rem;
-            opacity: 0.7;
-        }
-        /* Style for the game items created by script.js */
-        .zone-item {
-            transition: transform 0.2s;
-            max-width: 160px;
-        }
-        .zone-item:hover {
-            transform: scale(1.05);
-        }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; }
+        #container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
+        .zone-item { cursor: pointer; transition: transform 0.2s; }
+        .zone-item:hover { transform: scale(1.05); }
+        img { width: 150px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- Main title bar -->
-    <div style="padding: 20px; border-bottom: 1px solid #333; text-align: center;">
-        <h1 style="margin: 0; font-size: 1.8rem;">Tier 2 Games</h1>
-    </div>
-
-    <!-- The Box where script.js will put the games -->
     <div id="container">
-        <div class="loading-text">Loading Games Library...</div>
+        <h1 style="text-align: center; margin-top: 20vh;">Loading Games...</h1>
     </div>
 
-    <!-- IMPORTANT: Only call script.js once at the very bottom -->
-    <script src="./script.js"></script>
+    <!-- The Viewer (Required for script.js) -->
+    <div id="zoneViewer" style="display: none; position: fixed; inset: 0; background: black; z-index: 9999;">
+        <div style="padding: 10px; background: #222;">
+            <span id="zoneName"></span>
+            <button onclick="closeZone()">Close</button>
+        </div>
+        <div id="zoneViewerContent"></div>
+    </div>
 
+    <script>
+        // This is the AdBlock check you had - kept exactly as is
+        async function checkAdBlock() {
+            try {
+                const response = await fetch(new Request("https://pagead2.googlesyndication.com"));
+                console.log("AdBlock Enabled: false");
+                return false;
+            } catch (e) {
+                console.log("AdBlock Enabled: true");
+                return true;
+            }
+        }
+        checkAdBlock();
+    </script>
+
+    <script src="./script.js"></script>
 </body>
 </html>
-
