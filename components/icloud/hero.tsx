@@ -380,7 +380,7 @@ export function Hero() {
 
       {/* Game! */}
       <a 
-  href="/index.html"
+  href="/games.html"
   className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-opacity-90 transition-all shadow-lg"
   style={{ cursor: 'pointer', fontSize: '1.1rem', textDecoration: 'none' }}
 >
