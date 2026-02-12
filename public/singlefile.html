@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games Library</title>
-    <!-- Link your style sheet -->
     <link rel="stylesheet" href="./style.css">
 </head>
 <body style="background-color: black; color: white; margin: 0; padding: 0;">
 
-    <div id="game-container">
-        <!-- Your games will be injected here by script.js -->
+    <!-- This MUST be named "container" (no "game-") -->
+    <div id="container">
         <h1 style="text-align: center; margin-top: 20%; font-family: sans-serif;">
             Loading Games...
         </h1>
     </div>
 
-    <!-- IMPORTANT: Call the script at the BOTTOM so the page loads first -->
+    <!-- The script also needs these hidden "boxes" or it will crash -->
+    <div style="display: none;">
+        <input type="text" id="searchBar">
+        <select id="sortOptions">
+            <option value="popular">Popular</option>
+        </select>
+        <div id="zoneViewer">
+            <div id="zoneName"></div>
+            <div id="zoneId"></div>
+        </div>
+    </div>
+
+    <!-- IMPORTANT: Script at the bottom -->
     <script src="./script.js"></script>
 
 </body>
 </html>
-
