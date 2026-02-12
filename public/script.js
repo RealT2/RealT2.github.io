@@ -1,7 +1,9 @@
-// Verification logs
 console.log("Script.js is ALIVE");
 
-const container = document.getElementById('container');
+// Renamed to 'gameBox' to avoid the "already declared" error
+const gameBox = document.getElementById('container');
+
+// CORRECTED URLS (No 'www', strictly 'cdn')
 const zonesURL = "https://cdn.jsdelivr.net";
 const coverURL = "https://cdn.jsdelivr.net";
 const htmlURL = "https://cdn.jsdelivr.net";
@@ -10,42 +12,47 @@ async function listZones() {
     console.log("Attempting to fetch zones...");
     try {
         const response = await fetch(zonesURL);
+        
+        if (!response.ok) throw new Error("HTTP error! status: " + response.status);
+        
         const zones = await response.json();
         console.log("Zones fetched successfully:", zones.length);
         
-        if (!container) {
+        if (!gameBox) {
             console.error("CRITICAL: Element with ID 'container' not found!");
             return;
         }
 
-        container.innerHTML = ""; // Clear the "Loading..." text
+        gameBox.innerHTML = ""; // Clear "Loading..."
         
         zones.forEach(file => {
             const zoneItem = document.createElement("div");
             zoneItem.style.display = "inline-block";
             zoneItem.style.margin = "10px";
             zoneItem.style.textAlign = "center";
-            zoneItem.style.color = "white";
+            zoneItem.style.cursor = "pointer";
             
-            const img = document.createElement("img");
-            img.src = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-            img.style.width = "150px";
-            img.style.borderRadius = "10px";
-            img.style.display = "block";
+            // Fix URLs in the data
+            const cleanCover = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
             
-            const name = document.createElement("p");
-            name.textContent = file.name;
+            zoneItem.innerHTML = `
+                <img src="${cleanCover}" style="width:150px; border-radius:10px; display:block;">
+                <p style="color:white; font-family:sans-serif; margin-top:5px;">${file.name}</p>
+            `;
+            
+            // Redirect to the game on click
+            zoneItem.onclick = () => {
+                const gameUrl = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+                window.location.href = gameUrl;
+            };
 
-            zoneItem.appendChild(img);
-            zoneItem.appendChild(name);
-            container.appendChild(zoneItem);
+            gameBox.appendChild(zoneItem);
         });
         
     } catch (error) {
         console.error("FETCH ERROR:", error);
-        container.innerHTML = "Error: " + error.message;
+        if (gameBox) gameBox.innerHTML = "<p style='color:red;'>Error: " + error.message + "</p>";
     }
 }
 
-// Start immediately
 listZones();
