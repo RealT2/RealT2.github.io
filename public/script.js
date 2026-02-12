@@ -1,25 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games Library</title>
-    <!-- Link your style sheet -->
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body style="background-color: black; color: white; margin: 0; padding: 0;">
+// Verification logs
+console.log("Script.js is ALIVE");
 
-    <div id="game-container">
-        <!-- Your games will be injected here by script.js -->
-        <h1 style="text-align: center; margin-top: 20%; font-family: sans-serif;">
-            Loading Games...
-        </h1>
-    </div>
+const container = document.getElementById('container');
+const zonesURL = "https://cdn.jsdelivr.net";
+const coverURL = "https://cdn.jsdelivr.net";
+const htmlURL = "https://cdn.jsdelivr.net";
 
-    <!-- IMPORTANT: Call the script at the BOTTOM so the page loads first -->
-    <script src="./script.js"></script>
+async function listZones() {
+    console.log("Attempting to fetch zones...");
+    try {
+        const response = await fetch(zonesURL);
+        const zones = await response.json();
+        console.log("Zones fetched successfully:", zones.length);
+        
+        if (!container) {
+            console.error("CRITICAL: Element with ID 'container' not found!");
+            return;
+        }
 
-</body>
-</html>
+        container.innerHTML = ""; // Clear the "Loading..." text
+        
+        zones.forEach(file => {
+            const zoneItem = document.createElement("div");
+            zoneItem.style.display = "inline-block";
+            zoneItem.style.margin = "10px";
+            zoneItem.style.textAlign = "center";
+            zoneItem.style.color = "white";
+            
+            const img = document.createElement("img");
+            img.src = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+            img.style.width = "150px";
+            img.style.borderRadius = "10px";
+            img.style.display = "block";
+            
+            const name = document.createElement("p");
+            name.textContent = file.name;
 
+            zoneItem.appendChild(img);
+            zoneItem.appendChild(name);
+            container.appendChild(zoneItem);
+        });
+        
+    } catch (error) {
+        console.error("FETCH ERROR:", error);
+        container.innerHTML = "Error: " + error.message;
+    }
+}
 
+// Start immediately
+listZones();
