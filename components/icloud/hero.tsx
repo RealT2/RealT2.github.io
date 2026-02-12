@@ -192,9 +192,9 @@ function AvatarScene() {
 }
 
 // Phase durations in ms
-const CLOUD_SHOW = 3000
-const TRANSITION = 1200
-const AVATAR_SHOW = 5000
+const CLOUD_SHOW = 2000
+const TRANSITION = 700
+const AVATAR_SHOW = 4000
 
 type Phase = "cloud" | "cloud-out" | "avatar" | "avatar-out"
 
@@ -233,10 +233,10 @@ export function Hero() {
   return (
     <section className="flex flex-col items-center justify-center pt-20 pb-8 px-6">
       {/* Morph container */}
-      <div className="relative mb-4 mt-8 h-[340px] md:h-[420px] w-[340px] md:w-[420px] flex items-center justify-center">
+      <div className="relative mb-0 mt-8 h-[340px] md:h-[420px] w-[340px] md:w-[420px] flex items-center justify-center">
         {/* Cloud layer */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-all duration-[1200ms] ease-in-out ${cloudOpacity} ${cloudScale}`}
+          className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${cloudOpacity} ${cloudScale}`}
           style={{ pointerEvents: cloudVisible ? "auto" : "none" }}
         >
           <CloudIcon className="drop-shadow-2xl" />
@@ -244,19 +244,15 @@ export function Hero() {
 
         {/* Avatar scene layer */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-all duration-[1200ms] ease-in-out ${avatarOpacity} ${avatarScale}`}
+          className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${avatarOpacity} ${avatarScale}`}
           style={{ pointerEvents: avatarVisible ? "auto" : "none" }}
         >
           <AvatarScene />
         </div>
       </div>
 
-      {/* iCloud text - also morphs opacity in sync */}
-      <h1
-        className={`text-7xl md:text-[96px] font-semibold text-foreground tracking-tight mb-12 transition-opacity duration-[1200ms] ease-in-out ${
-          phase === "cloud" ? "opacity-100" : phase === "cloud-out" ? "opacity-0" : phase === "avatar" ? "opacity-0" : "opacity-0"
-        }`}
-      >
+      {/* iCloud text - always visible, not tied to animation */}
+      <h1 className="text-7xl md:text-[96px] font-semibold text-foreground tracking-tight mb-12">
         iCloud
       </h1>
 
