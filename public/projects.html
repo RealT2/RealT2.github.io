@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games Library</title>
-    <link rel="stylesheet" href="./style.css">
-    
-    <!-- YOUR ORIGINAL FULL CODE -->
-    <script>
-        const _0x54d28a=_0x5d9500;(function(_0x267b96,_0xb88074){const _0x523dae=_0x5d9500,_0x657686=_0x267b96();while(!![]){try{const _0x5ca285=-parseInt(_0x523dae(0x219))/0x1+parseInt(_0x523dae(0x20a))/0x2+parseInt(_0x523dae(0x1f2))/0x3+parseInt(_0x523dae(0x1e9))/0x4*(-parseInt(_0x523dae(0x215))/0x5)+parseInt(_0x523dae(0x218))/0x6*(-parseInt(_0x523dae(0x1dd))/0x7)+parseInt(_0x523dae(0x1ea))/0x8*(-parseInt(_0x523dae(0x1d9))/0x9)+parseInt(_0x523dae(0x1e3))/0xa;if(_0x5ca285===_0xb88074)break;else _0x657686['push'](_0x657686['shift']());}catch(_0xad767e){_0x657686['push'](_0x657686['shift']());}}}(_0x48d86b,0xc9dbe));async function _0x37025c(){const _0x3c80b8=_0x5d9500;let _0x23633c=!0x1;try{var _0x22c62b=[_0x3c80b8(0x213),_0x3c80b8(0x1f5)],_0x2d55f8=await fetch(new Request(_0x3c80b8(0x203)));_0x2d55f8['headers']['get'](_0x3c80b8(0x1e6))||(_0x23633c=!0x0);const _0x54002d=await _0x2d55f8['json']();_0x22c62b['every'](_0x3b5bb6=>_0x54002d['includes'](_0x3b5bb6))&&(_0x23633c=!0x0);}catch(_0x7dba82){_0x23633c=!0x0;}finally{console.log('AdBlock Enabled: '+_0x23633c);}return _0x23633c;}
-    </script>
+    <title>T2 Games</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color: black; color: white; margin: 0; padding: 0;">
 
-    <div id="container">
-        <h1 style="text-align: center; margin-top: 20%; font-family: sans-serif;">
-            Loading Games...
-        </h1>
+<body class="dark-mode">
+    <h1>gn-math</h1>
+    <div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
+        <iframe src="https://democratmachinesucceed.com/km9dvd7fp?key=51c9dd135146d5d93f5886779fc2b354" style="width:90%; height:90px; border:none;"></iframe>
     </div>
-
-    <!-- These IDs are required by your script.js -->
-    <div style="display: none;">
-        <input type="text" id="searchBar">
-        <select id="sortOptions">
-            <option value="popular">Popular</option>
+    <input type="text" id="searchBar" placeholder="Search zones..." onkeyup="filterZones()">
+    <div id="topControls"> 
+        <div id="dataButtons">
+            <button onclick="saveData()">Save Data</button>
+            <button onclick="document.getElementById('file').click()">Load Data</button>
+            <input type="file" id="file" style="display:none" onchange="loadData(event)" />
+        </div>
+        <select id="sortOptions" onchange="sortZones()">
+            <option value="name">by Nameㅤ</option>
+            <option value="id">by Idㅤ</option>
+            <option value="popular">by Popularityㅤ</option>
         </select>
-        <span id="zoneCount"></span>
-        <div id="zoneViewer"><div id="zoneName"></div><div id="zoneId"></div><iframe id="zoneFrame"></iframe></div>
     </div>
-
-    <!-- Only call script.js at the bottom -->
-    <script src="./script.js"></script>
-
+    <div class="zone-wrapper">
+        <div id="zoneCount" class="zone-count"></div>
+        <div id="container">Loading...</div>
+    </div>      
+    <div id="zoneViewer">
+        <div id="zoneInfo">
+            <div id="zoneTitle">
+                <span id="zoneName"></span> <span id="zoneId"></span>
+            </div>
+            <div id="controls">
+                <button onclick="closeZone()">Close</button>
+                <button onclick="fullscreenZone()">Fullscreen</button>
+                <button onclick="aboutBlank()">about:blank (use if embed is broken)</button>
+            </div>
+        </div>
+        <iframe id="zoneFrame"></iframe>
+    </div>
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+    <script src="script.js"></script>
+    <div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
+        <iframe src="https://democratmachinesucceed.com/km9dvd7fp?key=51c9dd135146d5d93f5886779fc2b354" style="width:90%; height:90px; border:none;"></iframe>
+    </div>
+    
+    <input type="text" id="searchBar" style="display:none;">
+<select id="sortOptions" style="display:none;"><option value="popular">Popular</option></select>
+<div id="zoneViewer" style="display:none;">
+    <div id="zoneName"></div>
+    <div id="zoneId"></div>
+    <iframe id="zoneFrame"></iframe>
+</div>
+<div id="container">Loading Games...
+</div>
+    
 </body>
+
 </html>
+
+
 
