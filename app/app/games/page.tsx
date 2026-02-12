@@ -1,16 +1,13 @@
-tsx
 export default function GamesPage() {
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      {/* This block lets you use your old HTML inside the new site */}
+    <div style={{ width: '100vw', height: '100vh', backgroundColor: 'black' }}>
       <div dangerouslySetInnerHTML={{ __html: `
         
-        <!-- PASTE YOUR ENTIRE index.html CODE STARTING BELOW THIS LINE -->
+        <!-- PASTE YOUR index.html CODE BELOW THIS LINE -->
 
-        <h1 style="color: white; text-align: center;">My Games Library</h1>
-        <p style="color: white; text-align: center;">Games will load here...</p>
+        <h1 style="color: white; text-align: center; padding-top: 50px;">Games Loading...</h1>
 
-        <!-- PASTE YOUR CODE ABOVE THIS LINE -->
+        <!-- PASTE YOUR index.html CODE ABOVE THIS LINE -->
 
       ` }} />
     </div>
