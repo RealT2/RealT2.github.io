@@ -4,58 +4,39 @@ console.log("Script.js is ALIVE");
 var gameBox = document.getElementById('container');
 
 // CORRECTED URLS (No 'www', strictly 'cdn')
-const zonesURL = "https://fastly.jsdelivr.net";
-const coverURL = "https://fastly.jsdelivr.net";
-const htmlURL = "https://fastly.jsdelivr.net";
-
+// 'var' allows the script to run multiple times without crashing
+var zonesURL = "https://cdn.jsdelivr.net";
+var coverURL = "https://cdn.jsdelivr.net";
+var htmlURL = "https://cdn.jsdelivr.net";
 
 async function listZones() {
-    console.log("Attempting to fetch zones...");
+    console.log("Fetching games...");
     try {
-        const response = await fetch(zonesURL);
-        
-        if (!response.ok) throw new Error("HTTP error! status: " + response.status);
-        
-        const zones = await response.json();
-        console.log("Zones fetched successfully:", zones.length);
-        
-        if (!gameBox) {
-            console.error("CRITICAL: Element with ID 'container' not found!");
-            return;
-        }
-
-        gameBox.innerHTML = ""; // Clear "Loading..."
-        
-        zones.forEach(file => {
-            const zoneItem = document.createElement("div");
-            zoneItem.style.display = "inline-block";
-            zoneItem.style.margin = "10px";
-            zoneItem.style.textAlign = "center";
-            zoneItem.style.cursor = "pointer";
-            
-            // Fix URLs in the data
-            const cleanCover = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-            
-            zoneItem.innerHTML = `
-                <img src="${cleanCover}" style="width:150px; border-radius:10px; display:block;">
-                <p style="color:white; font-family:sans-serif; margin-top:5px;">${file.name}</p>
-            `;
-            
-            // Redirect to the game on click
-            zoneItem.onclick = () => {
-                const gameUrl = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-                window.location.href = gameUrl;
-            };
-
-            gameBox.appendChild(zoneItem);
+        // Use a direct fetch with no-cache to bypass the redirect/403
+        const response = await fetch(zonesURL, { 
+            cache: "no-store",
+            mode: "cors" 
         });
         
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        
+        const zones = await response.json();
+        const container = document.getElementById('container');
+        
+        if (container) {
+            container.innerHTML = ""; // Clear loading text
+            zones.forEach(file => {
+                const item = document.createElement("div");
+                item.className = "zone-item";
+                const cleanCover = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+                item.innerHTML = `<img src="${cleanCover}" style="width:150px; border-radius:10px;"><p>${file.name}</p>`;
+                item.onclick = () => window.location.href = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+                container.appendChild(item);
+            });
+        }
     } catch (error) {
-        console.error("FETCH ERROR:", error);
-        if (gameBox) gameBox.innerHTML = "<p style='color:red;'>Error: " + error.message + "</p>";
+        console.error("Game Load Failed:", error);
+        document.getElementById('container').innerHTML = "Failed to load games: " + error.message;
     }
 }
-
 listZones();
-
-
