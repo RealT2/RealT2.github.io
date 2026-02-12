@@ -4,9 +4,10 @@ console.log("Script.js is ALIVE");
 const gameBox = document.getElementById('container');
 
 // CORRECTED URLS (No 'www', strictly 'cdn')
-const zonesURL = "https://cdn.jsdelivr.net";
-const coverURL = "https://cdn.jsdelivr.net";
-const htmlURL = "https://cdn.jsdelivr.net";
+const zonesURL = "https://fastly.jsdelivr.net";
+const coverURL = "https://fastly.jsdelivr.net";
+const htmlURL = "https://fastly.jsdelivr.net";
+
 
 async function listZones() {
     console.log("Attempting to fetch zones...");
@@ -56,3 +57,4 @@ async function listZones() {
 }
 
 listZones();
+
