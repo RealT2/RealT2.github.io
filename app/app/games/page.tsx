@@ -7,6 +7,7 @@ export default function GamesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState('name');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
   const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
@@ -14,7 +15,6 @@ export default function GamesPage() {
   useEffect(() => {
     const loadGames = async () => {
       try {
-        // Fetch from your own API instead of direct CDN
         const response = await fetch('/api/games');
         
         if (!response.ok) {
@@ -48,27 +48,73 @@ export default function GamesPage() {
     return sorted;
   };
 
+  const filteredAndSortedZones = sortZones(
+    zones.filter(zone =>
+      zone.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   const displayZones = () => {
-    const sorted = sortZones(zones);
-    return sorted.map((zone) => (
+    return filteredAndSortedZones.map((zone) => (
       <div
         key={zone.id}
-        style={{
-          display: 'inline-block',
-          margin: '10px',
-          cursor: 'pointer',
-          textAlign: 'center',
-        }}
         onClick={() => openZone(zone)}
+        style={{
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = 'scale(1.05)';
+          el.style.opacity = '0.9';
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = 'scale(1)';
+          el.style.opacity = '1';
+        }}
       >
-        <img
-          src={zone.cover
-            .replace("{COVER_URL}", coverURL)
-            .replace("{HTML_URL}", htmlURL)}
-          alt={zone.name}
-          style={{ width: '150px', borderRadius: '10px' }}
-        />
-        <p style={{ color: 'white', marginTop: '10px' }}>{zone.name}</p>
+        <div
+          style={{
+            width: '160px',
+            aspectRatio: '1',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img
+            src={zone.cover
+              .replace("{COVER_URL}", coverURL)
+              .replace("{HTML_URL}", htmlURL)}
+            alt={zone.name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+        <p
+          style={{
+            color: '#1d1d1d',
+            marginTop: '12px',
+            fontSize: '15px',
+            fontWeight: '500',
+            textAlign: 'center',
+            maxWidth: '160px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
+          }}
+        >
+          {zone.name}
+        </p>
       </div>
     ));
   };
@@ -85,43 +131,235 @@ export default function GamesPage() {
   };
 
   return (
-    <div style={{ width: '100vw', minHeight: '100vh', backgroundColor: 'black', color: 'white', padding: '20px' }}>
-      {loading ? (
-        <h1 style={{ textAlign: 'center', paddingTop: '50px' }}>Loading Games...</h1>
-      ) : error ? (
-        <div style={{ textAlign: 'center', paddingTop: '50px' }}>
-          <h1 style={{ color: 'red' }}>Failed to load games</h1>
-          <p>{error}</p>
-        </div>
-      ) : (
-        <>
-          <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Games</h1>
-          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-            <label style={{ marginRight: '10px' }}>Sort by: </label>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+    <div
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%)',
+        padding: '40px 20px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      }}
+    >
+      {/* Header Section */}
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto 50px',
+          textAlign: 'center',
+        }}
+      >
+        <h1
+          style={{
+            fontSize: '56px',
+            fontWeight: '700',
+            color: '#1d1d1d',
+            margin: '0 0 20px 0',
+            letterSpacing: '-0.5px',
+          }}
+        >
+          Games
+        </h1>
+        <p
+          style={{
+            fontSize: '21px',
+            color: '#6e6e73',
+            margin: '0',
+            fontWeight: '400',
+            letterSpacing: '0.3px',
+          }}
+        >
+          Unblocked games for school
+        </p>
+      </div>
+
+      {/* Search and Sort Section */}
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto 40px',
+          display: 'flex',
+          gap: '12px',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Search games..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            padding: '12px 16px',
+            borderRadius: '12px',
+            border: '1px solid #e5e5ea',
+            fontSize: '16px',
+            fontFamily: 'inherit',
+            width: '100%',
+            maxWidth: '300px',
+            backgroundColor: '#ffffff',
+            color: '#1d1d1d',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            transition: 'all 0.2s ease',
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = '#0071e3';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 113, 227, 0.1)';
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = '#e5e5ea';
+            e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+          }}
+        />
+
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          style={{
+            padding: '12px 16px',
+            borderRadius: '12px',
+            border: '1px solid #e5e5ea',
+            fontSize: '16px',
+            fontFamily: 'inherit',
+            backgroundColor: '#ffffff',
+            color: '#1d1d1d',
+            cursor: 'pointer',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            appearance: 'none',
+            paddingRight: '32px',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231d1d1d' d='M1 1l5 5 5-5'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 12px center',
+            paddingRight: '36px',
+          }}
+        >
+          <option value="name">Sort by Name</option>
+          <option value="id">Sort by ID</option>
+        </select>
+      </div>
+
+      {/* Loading State */}
+      {loading && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '400px',
+          }}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <div
               style={{
-                padding: '8px',
-                borderRadius: '5px',
-                border: '1px solid #666',
-                backgroundColor: '#333',
-                color: 'white',
-                cursor: 'pointer',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: '3px solid #e5e5ea',
+                borderTop: '3px solid #0071e3',
+                margin: '0 auto 16px',
+                animation: 'spin 1s linear infinite',
+              }}
+            />
+            <p
+              style={{
+                color: '#6e6e73',
+                fontSize: '16px',
+                margin: '0',
               }}
             >
-              <option value="name">Name</option>
-              <option value="id">ID</option>
-            </select>
+              Loading games...
+            </p>
           </div>
-          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-            {zones.length} games loaded
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <div
+          style={{
+            maxWidth: '600px',
+            margin: '0 auto',
+            padding: '40px 24px',
+            backgroundColor: '#fff3cd',
+            borderRadius: '18px',
+            textAlign: 'center',
+            border: '1px solid #ffe69c',
+          }}
+        >
+          <h2
+            style={{
+              color: '#856404',
+              fontSize: '20px',
+              margin: '0 0 8px 0',
+              fontWeight: '600',
+            }}
+          >
+            Unable to load games
+          </h2>
+          <p
+            style={{
+              color: '#856404',
+              fontSize: '15px',
+              margin: '0',
+            }}
+          >
+            {error}
+          </p>
+        </div>
+      )}
+
+      {/* Games Grid */}
+      {!loading && !error && (
+        <>
+          <div
+            style={{
+              maxWidth: '1200px',
+              margin: '0 auto',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+              gap: '32px',
+              justifyItems: 'center',
+            }}
+          >
             {displayZones()}
           </div>
+
+          {/* No Results */}
+          {filteredAndSortedZones.length === 0 && zones.length > 0 && (
+            <div
+              style={{
+                textAlign: 'center',
+                marginTop: '60px',
+                color: '#6e6e73',
+              }}
+            >
+              <p style={{ fontSize: '17px', margin: '0' }}>
+                No games found matching "{searchQuery}"
+              </p>
+            </div>
+          )}
+
+          {/* Games Count */}
+          {zones.length > 0 && (
+            <div
+              style={{
+                textAlign: 'center',
+                marginTop: '60px',
+                color: '#6e6e73',
+                fontSize: '15px',
+              }}
+            >
+              {filteredAndSortedZones.length} of {zones.length} games
+            </div>
+          )}
         </>
       )}
+
+      <style>{`
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 }
