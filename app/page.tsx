@@ -1,7 +1,6 @@
 import { Nav } from "@/components/icloud/nav"
 import { Hero } from "@/components/icloud/hero"
 import { Features } from "@/components/icloud/features"
-import { VideoSection } from "@/components/icloud/video-section"
 import { Footer } from "@/components/icloud/footer"
 
 export default function Page() {
@@ -10,7 +9,6 @@ export default function Page() {
       <Nav />
       <Hero />
       <Features />
-      <VideoSection />
       <Footer />
     </main>
   )
