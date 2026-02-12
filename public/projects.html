@@ -13,49 +13,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="dark-mode">
-    <h1>T2 Games</h1>
-    <div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
-        <iframe src="https://democratmachinesucceed.com/km9dvd7fp?key=51c9dd135146d5d93f5886779fc2b354" style="width:90%; height:90px; border:none;"></iframe>
+<body style="background-color: black; margin: 0;">
+    <!-- Make sure this ID matches 'gameBox' search -->
+    <div id="container" style="padding: 20px; text-align: center;">
+        <h1 style="color: white; font-family: sans-serif;">Loading Games...</h1>
     </div>
-    <input type="text" id="searchBar" placeholder="Search zones..." onkeyup="filterZones()">
-    <div id="topControls"> 
-        <div id="dataButtons">
-            <button onclick="saveData()">Save Data</button>
-            <button onclick="document.getElementById('file').click()">Load Data</button>
-            <input type="file" id="file" style="display:none" onchange="loadData(event)" />
-        </div>
-        <select id="sortOptions" onchange="sortZones()">
-            <option value="name">by Nameㅤ</option>
-            <option value="id">by Idㅤ</option>
-            <option value="popular">by Popularityㅤ</option>
-        </select>
-    </div>
-    <div class="zone-wrapper">
-        <div id="zoneCount" class="zone-count"></div>
-        <div id="container">Loading...</div>
-    </div>      
-    <div id="zoneViewer">
-        <div id="zoneInfo">
-            <div id="zoneTitle">
-                <span id="zoneName"></span> <span id="zoneId"></span>
-            </div>
-            <div id="controls">
-                <button onclick="closeZone()">Close</button>
-                <button onclick="fullscreenZone()">Fullscreen</button>
-                <button onclick="aboutBlank()">about:blank (use if embed is broken)</button>
-            </div>
-        </div>
-        <iframe id="zoneFrame"></iframe>
-    </div>
-    <button id="darkModeToggle">Toggle Dark Mode</button>
-    <script src="script.js"></script>
-    <div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
-        <iframe src="https://democratmachinesucceed.com/km9dvd7fp?key=51c9dd135146d5d93f5886779fc2b354" style="width:90%; height:90px; border:none;"></iframe>
-    </div>
+
+    <!-- Only call script.js ONCE at the very bottom -->
+    <script src="./script.js"></script>
 </body>
 
+
 </html>
+
 
 
 
