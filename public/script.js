@@ -1,7 +1,7 @@
 console.log("Script.js is ALIVE");
 
 // Renamed to 'gameBox' to avoid the "already declared" error
-const gameBox = document.getElementById('container');
+var gameBox = document.getElementById('container');
 
 // CORRECTED URLS (No 'www', strictly 'cdn')
 const zonesURL = "https://fastly.jsdelivr.net";
@@ -57,4 +57,5 @@ async function listZones() {
 }
 
 listZones();
+
 
