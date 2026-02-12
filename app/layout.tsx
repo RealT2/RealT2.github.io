@@ -9,7 +9,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'iCloud',
+  title: 'Tier 2',
   description: 'The best place for all your photos, files, notes, mail, and more.',
 }
 

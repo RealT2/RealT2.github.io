@@ -16,7 +16,7 @@ export function Footer() {
           </a>
         </div>
         <p className="text-xs text-muted-foreground">
-          {"Copyright \u00A9 2026 Apple Inc. All rights reserved."}
+          {"Copyright \u00A9 2026 Tier 2. All rights reserved."}
         </p>
       </div>
     </footer>
