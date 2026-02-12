@@ -195,10 +195,10 @@ export function Features() {
             </AppIcon>
           </div>
           <h2 className="text-xl md:text-[26px] font-bold text-foreground leading-tight mb-8">
-            Easily access all your favorite apps in one place
+            Games that actually work, better than anywhere else
           </h2>
           <p className="text-[15px] text-muted-foreground leading-relaxed">
-            Tier 2 is essential for keeping your digital life organized, up to date, and available wherever you are. Access your favorite platforms from any web browser. Changes you make will sync across all your devices, so you{"'"}re always up to date.
+            Over 90% of the games on Tier 2 are fully functional and load faster than any other site out there. No broken links, no half-working embeds. Every game is tested and maintained so you can jump in and play without the headaches you get everywhere else.
           </p>
         </div>
 
@@ -208,14 +208,10 @@ export function Features() {
             <Tier2PlusBadge />
           </div>
           <h2 className="text-xl md:text-[26px] font-bold text-foreground leading-tight mb-8">
-            More storage, plus features to protect your privacy and connect with friends
+            Top-notch quality with apps, proxies, and more
           </h2>
           <p className="text-[15px] text-muted-foreground leading-relaxed">
-            Upgrade to Tier 2+ to get more storage, plan events with friends, and have peace of mind with privacy features like Private Relay, Hide My Email, and Secure Video. You can even share your subscription with your family. Learn more at{" "}
-            <a href="#" className="text-accent hover:underline">
-              tier2.app
-            </a>
-            .
+            Tier 2 isn{"'"}t just games. Browse through a massive library of apps, proxies, and tools all built with quality in mind. Whether you need to bypass restrictions, access your favorite platforms, or find something new, Tier 2 has it all in one clean, reliable place.
           </p>
         </div>
       </div>

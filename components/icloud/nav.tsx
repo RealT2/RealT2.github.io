@@ -2,7 +2,7 @@ import { MoreHorizontal } from "lucide-react"
 
 export function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 bg-background/80 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 bg-background/60 backdrop-blur-sm">
       <div className="flex items-center gap-2">
         <svg
           className="h-5 w-5 text-foreground"

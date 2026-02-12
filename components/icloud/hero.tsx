@@ -273,7 +273,7 @@ export function Hero() {
 
       {/* Tagline */}
       <p className="text-2xl md:text-[34px] font-semibold text-muted-foreground text-center leading-snug max-w-2xl text-balance">
-        The best place for all your photos, files, notes, mail, and more.
+        Made By Jordan M.
       </p>
     </section>
   )
