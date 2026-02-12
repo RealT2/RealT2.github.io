@@ -378,13 +378,15 @@ export function Hero() {
         </h1>
       </div>
 
-      {/* Sign In */}
-      <a
-        href="#"
-        className="inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-primary text-primary-foreground text-lg font-medium hover:bg-primary/90 transition-colors mt-10 mb-10 shadow-sm"
-      >
-        Sign In
+      {/* Game! */}
+      <a 
+              href="/games"
+                className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-opacity-90 transition-all shadow-lg"
+                  style={{ cursor: 'pointer', fontSize: '1.1rem', textDecoration: 'none' }}
+            >
+                    Game!
       </a>
+
 
       {/* Tagline */}
       <p className="text-2xl md:text-[34px] font-semibold text-muted-foreground text-center leading-snug max-w-2xl text-balance">
