@@ -8,16 +8,25 @@ export default function GamesPage() {
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState('name');
 
-  const zonesURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json";
   const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
   const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
   useEffect(() => {
     const loadGames = async () => {
       try {
-        const response = await fetch(zonesURL);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        // Fetch from your own API instead of direct CDN
+        const response = await fetch('/api/games');
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        
         const data = await response.json();
+        
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        
         setZones(data);
         setLoading(false);
       } catch (err) {
@@ -80,9 +89,10 @@ export default function GamesPage() {
       {loading ? (
         <h1 style={{ textAlign: 'center', paddingTop: '50px' }}>Loading Games...</h1>
       ) : error ? (
-        <h1 style={{ textAlign: 'center', paddingTop: '50px', color: 'red' }}>
-          Failed to load games: {error}
-        </h1>
+        <div style={{ textAlign: 'center', paddingTop: '50px' }}>
+          <h1 style={{ color: 'red' }}>Failed to load games</h1>
+          <p>{error}</p>
+        </div>
       ) : (
         <>
           <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Games</h1>
