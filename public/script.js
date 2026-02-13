@@ -9,6 +9,13 @@ const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 let zones = [];
 let popularityData = {};
+/**
+* Fetches the list of zones from the server, updates the global zones array, refreshes popularity and sorting, and opens a zone if an 'id' query parameter is present; displays an error message on failure.
+* @example
+* listZones()
+* Promise<void>
+* @returns {{Promise<void>}} Promise that resolves when zones are loaded and the UI has been updated.
+**/
 async function listZones() {
     try {
         const response = await fetch(zonesURL);
@@ -28,6 +35,13 @@ async function listZones() {
         container.innerHTML = `Error loading zones: ${error}`;
     }
 }
+/**
+* Fetches yearly hit statistics for HTML files from jsDelivr and populates the global popularityData mapping by numeric file ID.
+* @example
+* fetchPopularity()
+* Promise<void>
+* @returns {Promise<void>} Resolves when popularityData has been updated; on error sets popularityData[0] = 0.
+**/
 async function fetchPopularity() {
     try {
         const response = await fetch("https://data.jsdelivr.com/v1/stats/packages/gh/gn-math/html@main/files?period=year");
@@ -44,6 +58,14 @@ async function fetchPopularity() {
     }
 }
 
+/**
+* Sorts the global zones array according to the currently selected sort option and updates the display.
+* @example
+* sortZones()
+* undefined
+* @param {void} none - This function does not accept any parameters.
+* @returns {undefined} No return value; sorts the zones array and calls displayZones(zones).
+**/
 function sortZones() {
     const sortBy = sortOptions.value;
     if (sortBy === 'name') {
@@ -57,6 +79,14 @@ function sortZones() {
     displayZones(zones);
 }
 
+/**
+ * Render a list of zone entries into the page container and update the zone count.
+ * @example
+ * displayZones([{ name: 'Zone 1', cover: '{{COVER_URL}}/cover.png' }])
+ * undefined
+ * @param {Array<Object>} zones - Array of zone objects each containing at least 'name' and 'cover' properties.
+ * @returns {void} Updates the DOM with zone items and zone count; does not return a value.
+ */
 function displayZones(zones) {
     container.innerHTML = "";
     zones.forEach(file => {
@@ -88,6 +118,14 @@ function filterZones() {
     displayZones(filteredZones);
 }
 
+/**
+* Open a zone by navigating to an external URL or fetching and rendering HTML into an iframe.
+* @example
+* openZone({url: "http://example.com/zone", name: "Example Zone", id: "zone-1"})
+* undefined
+* @param {{Object}} {{file}} - Object describing the zone; must include url (string), name (string) and id (string).
+* @returns {{void}} Void (no return value).
+**/
 function openZone(file) {
     if (file.url.startsWith("http")) {
         window.location.href = file.url;
@@ -150,6 +188,14 @@ function saveData() {
     document.body.removeChild(link);
 }
 
+/**
+* Loads JSON-formatted localStorage entries and cookie strings from a user-selected file and applies them to the current document.
+* @example
+* loadData(event)
+* undefined
+* @param {{Event}} {{event}} - The file input change event whose target.files[0] contains the uploaded data file.
+* @returns {{void}} No return value; updates localStorage and document.cookie and displays an alert on completion.
+*/
 function loadData(event) {
     const file = event.target.files[0];
     if (!file) return;
