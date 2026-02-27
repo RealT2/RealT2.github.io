@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+* GamesPage React component that fetches games from /api/games and renders a searchable, sortable grid of game tiles with loading and error states.
+* @example
+* GamesPage()
+* <JSX.Element />
+* @returns {JSX.Element} The rendered Games page component.
+**/
 export default function GamesPage() {
   const [zones, setZones] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -13,6 +20,13 @@ export default function GamesPage() {
   const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
   useEffect(() => {
+    /**
+    * Fetches game data from the /api/games endpoint, updates state via setZones/setLoading/setError, and handles errors.
+    * @example
+    * sync()
+    * Promise<void>
+    * @returns {Promise<void>} Returns a promise that resolves when the fetch completes and state has been updated.
+    **/
     const loadGames = async () => {
       try {
         const response = await fetch('/api/games');
@@ -54,6 +68,14 @@ export default function GamesPage() {
     )
   );
 
+  /**
+  * Render a list of interactive zone card JSX elements from the provided zones array.
+  * @example
+  * renderZoneCards(filteredAndSortedZones)
+  * [<div key="zone1">...</div>, <div key="zone2">...</div>]
+  * @param {Array<Object>} filteredAndSortedZones - Array of zone objects (each should include at minimum id, name and cover properties).
+  * @returns {JSX.Element[]} Array of JSX elements representing clickable, animated zone cards.
+  */
   const displayZones = () => {
     return filteredAndSortedZones.map((zone) => (
       <div
